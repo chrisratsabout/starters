@@ -10,7 +10,9 @@
 </head>
 
 <body>
-    <h1>PokéMon</h1>
+    <img class="logo" src="images/logo.png" alt="logo">
+    <br>
+    <br>
     <div class="btn_container">
         <button class="filter-btn" data-id="All">All</button>
         <button class="filter-btn" data-id="Grass">Grass</button>
@@ -96,38 +98,39 @@
         const sectionCenter = document.querySelector('.section-center');
         const btns = document.querySelectorAll('.filter-btn');
 
+        window.addEventListener('DOMContentLoaded', function () {
+            displayPokemon(pokemon);
+        })
+
         btns.forEach(function (btn) {
             btn.addEventListener('click', function (e) {
-                let type = e.currentTarget.dataset.id;
-                let pokemonFilter = pokemon.filter(function(item){
-                    if(item.type === type){
-                        return item;
+                let pokemonType = e.currentTarget.dataset.id;
+                let pokemonFilter = pokemon.filter(function (object) {
+                    if (object.type === pokemonType) {
+                        return object
                     }
                 })
-                if(type === 'All'){
-                    displayPokemonMenu(pokemon);
+                if (pokemonType === 'All') {
+                    displayPokemon(pokemon);
                 } else {
-                    displayPokemonMenu(pokemonFilter);
+                    displayPokemon(pokemonFilter);
                 }
             })
         })
 
-        window.addEventListener('DOMContentLoaded', function(){
-            displayPokemonMenu(pokemon);
-        })
-
-        function displayPokemonMenu(array){
-            let pokemonMap = array.map(function(item){
+        function displayPokemon(item) {
+            let pokemonContent = item.map(function (array) {
                 return `<div class="pokemon-item">
-            <img class="photo" src="${item.image}" alt="${item.name}">
-            <h2>${item.name}</h2>
-            <h3># <span id="number">${item.number}</span></h3>
-            <h4>Type: <span id="type">${item.type}</span></h4>
+            <img class="photo" src="${array.image}" alt="${array.name}">
+            <h2>${array.name}</h2>
+            <h3># <span id="number">${array.number}</span></h3>
+            <h4>Type: <span id="type">${array.type}</span></h4>
         </div>`
             })
-            pokemonMap = pokemonMap.join('');
-            sectionCenter.innerHTML = pokemonMap;
+            pokemonContent = pokemonContent.join('');
+            sectionCenter.innerHTML = pokemonContent;
         }
+
 
 
     </script>
